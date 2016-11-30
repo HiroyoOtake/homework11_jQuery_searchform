@@ -125,25 +125,58 @@ $places = array(
     .search-result {
       margin: 10px 0;
     }
+
+.media2 {
+	visibility : hidden;
+}
+
   </style>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script>
+	$(function(){ 
+		$("[name=pref]").change(function(){ //タブのクリック時にアクションが起きる
+			$(".media2").removeClass("media2"); 
+			var a = $("option:selected").val();
+			var b = $("option:selected").text();
+			alert(a + b); //とりあえず選択した項目の要素を取得してみる
+		});
+	});
+</script> 
+
 </head>
 <body>
-  <h1>関東地方の観光スポット検索</h1>
-  <div class="container">
-    <form class="form-inline" action="search_results.php" method="post">
-      <div class="form-group">
-        <select name="pref" class="form-control">
-         <option>選択してください</option>
-         <?php foreach ($prefectures as $number => $prefecture): ?> 
-          <option value="<?php echo $number; ?>"><?php echo $prefecture; ?></option>
-         <?php endforeach ?>
-        </select>
-      </div>
-      <button class="btn btn-primary btn-sm"> 検 索 </button>
-    </form>
-  </div>
-  <hr>
-  <footer>&copy; 観光スポット検索協会 </footer>
+	<h1>関東地方の観光スポット検索</h1>
+	<div class="container">
+		<form class="form-inline" action="search_results.php" method="post">
+			<div class="form-group">
+				<select name="pref" class="form-control">
+					<option>選択してください</option>
+					<?php foreach ($prefectures as $number => $prefecture): ?> 
+						<option value="<?php echo $number; ?>"><?php echo $prefecture; ?></option>
+					<?php endforeach ?>
+				</select>
+			</div>
+			<!-- <button class="btn btn&#45;primary btn&#45;sm"> 検 索 </button> -->
+		</form>
+
+<?php foreach($places as  $place): ?>
+	<?php foreach($place as  $value): ?>
+		<div class="media media2">
+			<div class="media-left">
+				<img src="<?php echo $value['image']; ?>" class="media-object img-thumbnail">
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading"><?php echo $value['name']; ?></h4>
+				<?php echo $value['detail']; ?>
+			</div>
+		</div>
+	<?php endforeach ?>
+<?php endforeach ?>
+
+	</div>
+	<hr>
+	<footer>&copy; 観光スポット検索協会 </footer>
 </body>
 </html>
 

@@ -126,8 +126,8 @@ $places = array(
       margin: 10px 0;
     }
 
-.media2 {
-	visibility : hidden;
+.media {
+	display:none;
 }
 
   </style>
@@ -136,10 +136,9 @@ $places = array(
 <script>
 	$(function(){ 
 		$("[name=pref]").change(function(){ //タブのクリック時にアクションが起きる
-			$(".media2").removeClass("media2"); 
+			$(".media").hide();
 			var a = $("option:selected").val();
-			var b = $("option:selected").text();
-			alert(a + b); //とりあえず選択した項目の要素を取得してみる
+			$(".pre_" + a).show();
 		});
 	});
 </script> 
@@ -160,19 +159,19 @@ $places = array(
 			<!-- <button class="btn btn&#45;primary btn&#45;sm"> 検 索 </button> -->
 		</form>
 
-<?php foreach($places as  $place): ?>
-	<?php foreach($place as  $value): ?>
-		<div class="media media2">
-			<div class="media-left">
-				<img src="<?php echo $value['image']; ?>" class="media-object img-thumbnail">
-			</div>
-			<div class="media-body">
-				<h4 class="media-heading"><?php echo $value['name']; ?></h4>
-				<?php echo $value['detail']; ?>
-			</div>
-		</div>
-	<?php endforeach ?>
-<?php endforeach ?>
+		<?php foreach($places as  $place_num => $place): ?>
+			<?php foreach($place as  $value): ?>
+				<div class="media pre_<?php echo $place_num; ?>">
+					<div class="media-left">
+						<img src="<?php echo $value['image']; ?>" class="media-object img-thumbnail">
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading"><?php echo $value['name']; ?></h4>
+						<?php echo $value['detail']; ?>
+					</div>
+				</div>
+			<?php endforeach ?>
+		<?php endforeach ?>
 
 	</div>
 	<hr>
